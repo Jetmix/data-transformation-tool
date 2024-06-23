@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Mapping & Data Transformation - Data Transfer App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+        .step p {
+            margin-top: 8px;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #dee2e6;
+            z-index: -1;
+        }
+        .step.active .circle {
+            background-color: #007bff;
+            color: white;
+        }
+        .circle {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            color: #495057;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Data Transfer App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Stepper Section -->
+<div class="container my-3">
+    <div class="stepper">
+        <div class="step active">
+            <div class="circle">1</div>
+            <p>Source Data</p>
+        </div>
+        <div class="step active">
+            <div class="circle">2</div>
+            <p>Field Mapping</p>
+        </div>
+        <div class="step active">
+            <div class="circle">3</div>
+            <p>Transformation</p>
+        </div>
+        <div class="step active">
+            <div class="circle">4</div>
+            <p>Fitering</p>
+        </div>
+        <div class="step">
+            <div class="circle">5</div>
+            <p>Review</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Step 4: Filtering</h2>
+        </div>
+        <div class="col-12 mb-4">
+             <select class="col-12 form-control">
+                <option>File 1.csv</option>
+                <option>File 2.csv</option>
+            </select>       
+        </div>
+    </div>
+
+    <!-- Step 4: Filtering -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Filtering
+        </div>
+        <div class="card-body">
+            <form>
+                <!-- Filter Conditions Section -->
+                <div class="form-group">
+                    <label for="filterField">Filter Field</label>
+                    <select class="form-control" id="filterField">
+                        <option>Field 1</option>
+                        <option>Field 2</option>
+                        <option>Field 3</option>
+                        <option>Field 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterCondition">Condition</label>
+                    <select class="form-control" id="filterCondition">
+                        <option>Equals</option>
+                        <option>Not Equals</option>
+                        <option>Contains</option>
+                        <option>Does Not Contain</option>
+                        <option>Greater Than</option>
+                        <option>Less Than</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterValue">Value</label>
+                    <input type="text" class="form-control" id="filterValue" placeholder="Enter filter value">
+                </div>
+                <button type="button" class="btn btn-primary" id="addFilter">Add Filter</button>
+            </form>
+
+            <!-- Applied Filters Section -->
+            <h5 class="mt-4">Applied Filters</h5>
+            <ul class="list-group" id="appliedFilters">
+                <!-- Applied filters will be listed here -->
+                <li class="list-group-item d-flex justify-content-between align-items-center">Field 1 Equals Book<button class="btn btn-danger btn-sm">Remove</button></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">Field 2 Not Equals Table<button class="btn btn-danger btn-sm">Remove</button></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">Field 3 Contains Bar<button class="btn btn-danger btn-sm">Remove</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sort Options -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Sort Options
+        </div>
+        <div class="card-body">
+            <form>
+                <p>Choose a field to sort the source data</p>
+                <div class="form-group">
+                    <label for="sortField">Sort Field</label>
+                    <select class="form-control" id="sortField">
+                        <option>Field 1</option>
+                        <option>Field 2</option>
+                        <option>Field 3</option>
+                        <option>Field 4</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Navigation Buttons -->
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-secondary">Previous</button>
+            <button type="button" class="btn btn-success">Next</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+  <div class="container">
+    <span class="text-muted">Privacy Policy | Terms of Service | Contact Info</span>
+  </div>
+</footer>
+
+<script>
+    document.getElementById('addFilter').addEventListener('click', function() {
+        const field = document.getElementById('filterField').value;
+        const condition = document.getElementById('filterCondition').value;
+        const value = document.getElementById('filterValue').value;
+
+        const filterText = `${field} ${condition} ${value}`;
+        const filterItem = document.createElement('li');
+        filterItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+        filterItem.textContent = filterText;
+
+        const removeButton = document.createElement('button');
+        removeButton.className = 'btn btn-danger btn-sm';
+        removeButton.textContent = 'Remove';
+        removeButton.addEventListener('click', function() {
+            filterItem.remove();
+        });
+
+        filterItem.appendChild(removeButton);
+        document.getElementById('appliedFilters').appendChild(filterItem);
+
+        // Clear inputs
+        document.getElementById('filterField').value = '';
+        document.getElementById('filterCondition').value = '';
+        document.getElementById('filterValue').value = '';
+    });
+</script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

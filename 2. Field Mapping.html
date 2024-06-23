@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Mapping & Data Transformation - Data Transfer App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+        .step p {
+            margin-top: 8px;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #dee2e6;
+            z-index: -1;
+        }
+        .step.active .circle {
+            background-color: #007bff;
+            color: white;
+        }
+        .circle {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            color: #495057;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Data Transfer App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Stepper Section -->
+<div class="container my-3">
+    <div class="stepper">
+        <div class="step active">
+            <div class="circle">1</div>
+            <p>Source Data</p>
+        </div>
+        <div class="step active">
+            <div class="circle">2</div>
+            <p>Field Mapping</p>
+        </div>
+        <div class="step">
+            <div class="circle">3</div>
+            <p>Transformation</p>
+        </div>
+        <div class="step">
+            <div class="circle">4</div>
+            <p>Fitering</p>
+        </div>
+        <div class="step">
+            <div class="circle">5</div>
+            <p>Review</p>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Step 2: Field Mapping</h2>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <!-- Data Preview -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Data Preview
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="dataPreviewTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="file1-tab" data-toggle="tab" href="#file1" role="tab" aria-controls="file1" aria-selected="true">File1.csv</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="file2-tab" data-toggle="tab" href="#file2" role="tab" aria-controls="file2" aria-selected="false">File2.csv</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="dataPreviewTabsContent">
+                        <div class="tab-pane fade show active" id="file1" role="tabpanel" aria-labelledby="file1-tab">
+                            <table class="table table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Column 1</th>
+                                        <th>Column 2</th>
+                                        <th>Column 3</th>
+                                        <th>Column 4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Data 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data 3</td>
+                                        <td>Data 4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data 1</td>
+                                        <td>Data 2</td>
+                                        <td>Data 3</td>
+                                        <td>Data 4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="file2" role="tabpanel" aria-labelledby="file2-tab">
+                            <table class="table table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Column A</th>
+                                        <th>Column B</th>
+                                        <th>Column C</th>
+                                        <th>Column D</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Data A</td>
+                                        <td>Data B</td>
+                                        <td>Data C</td>
+                                        <td>Data D</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data A</td>
+                                        <td>Data B</td>
+                                        <td>Data C</td>
+                                        <td>Data D</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <small>Only first few rows are shown</small>
+                </div>
+            </div>
+
+            <!-- Field Mapping -->
+            <div class="card">
+                <div class="card-header">
+                    Field Mapping
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="fieldMappingTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="file1-tab" data-toggle="tab" href="#file1a" role="tab" aria-controls="file1" aria-selected="true">File1.csv</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="file2-tab" data-toggle="tab" href="#file2a" role="tab" aria-controls="file2" aria-selected="false">File2.csv</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="fieldMappingTabsContent">
+                        <div class="tab-pane fade show active" id="file1a" role="tabpanel" aria-labelledby="file1-tab">
+                            <form>
+                                <div class="form-group">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Source Field</th>
+                                                <th>Target Field</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Field 1</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field A</option>
+                                                        <option>Field B</option>
+                                                        <option>Field C</option>
+                                                        <option>Field D</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown1">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field 2</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field A</option>
+                                                        <option>Field B</option>
+                                                        <option>Field C</option>
+                                                        <option>Field D</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown2">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field 3</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field A</option>
+                                                        <option>Field B</option>
+                                                        <option>Field C</option>
+                                                        <option>Field D</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown3">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field 4</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field A</option>
+                                                        <option>Field B</option>
+                                                        <option>Field C</option>
+                                                        <option>Field D</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown4">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="file2a" role="tabpanel" aria-labelledby="file2-tab">
+                            <form>
+                                <div class="form-group">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Source Field</th>
+                                                <th>Target Field</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Field A</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field 1</option>
+                                                        <option>Field 2</option>
+                                                        <option>Field 3</option>
+                                                        <option>Field 4</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown5">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field B</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field 1</option>
+                                                        <option>Field 2</option>
+                                                        <option>Field 3</option>
+                                                        <option>Field 4</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown6">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field C</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field 1</option>
+                                                        <option>Field 2</option>
+                                                        <option>Field 3</option>
+                                                        <option>Field 4</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown7">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Field D</td>
+                                                <td>
+                                                    <select class="form-control">
+                                                        <option>Field 1</option>
+                                                        <option>Field 2</option>
+                                                        <option>Field 3</option>
+                                                        <option>Field 4</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Action with field
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="actionDropdown8">
+                                                            <a class="dropdown-item" href="#">Ignore</a>
+                                                            <a class="dropdown-item" href="#">Transform</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-secondary">Previous</button>
+            <button type="button" class="btn btn-success">Next</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+  <div class="container">
+    <span class="text-muted">Privacy Policy | Terms of Service | Contact Info</span>
+  </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

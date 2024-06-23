@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Mapping & Data Transformation - Data Transfer App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .step {
+            flex: 1;
+            position: relative;
+            text-align: center;
+        }
+        .step p {
+            margin-top: 8px;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #dee2e6;
+            z-index: -1;
+        }
+        .step.active .circle {
+            background-color: #007bff;
+            color: white;
+        }
+        .circle {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #dee2e6;
+            color: #495057;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Data Transfer App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Stepper Section -->
+<div class="container my-3">
+    <div class="stepper">
+        <div class="step active">
+            <div class="circle">1</div>
+            <p>Source Data</p>
+        </div>
+        <div class="step active">
+            <div class="circle">2</div>
+            <p>Field Mapping</p>
+        </div>
+        <div class="step active">
+            <div class="circle">3</div>
+            <p>Transformation</p>
+        </div>
+        <div class="step active">
+            <div class="circle">4</div>
+            <p>Fitering</p>
+        </div>
+        <div class="step active">
+            <div class="circle">5</div>
+            <p>Review</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Step 5: Review</h2>
+        </div>
+        <div class="col-12 mb-4">
+             <select class="col-12 form-control">
+                <option>File 1.csv</option>
+                <option>File 2.csv</option>
+            </select>       
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <!-- Step 5: Execute -->
+            <div class="card">
+                <div class="card-header">
+                    Summary
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="accordionExample">
+                        <!-- Section 1: Select Source & Target -->
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Step 1: Select Source & Target
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <!-- Content for Step 1 -->
+                                    <p>Source Data Type: CSV File</p>
+                                    <p>Uploaded Files: File1.csv, File2.csv</p>
+                                    <p>Target Data Type: JSON File</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section 2: Field Mapping -->
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Step 2: Field Mapping
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <!-- Content for Step 2 -->
+                                    <p>File1.csv:</p>
+                                    <ul>
+                                        <li>Field 1 -> Field A</li>
+                                        <li>Field 2 -> Field B</li>
+                                    </ul>
+                                    <p>File2.csv:</p>
+                                    <ul>
+                                        <li>Field A -> Field 1</li>
+                                        <li>Field B -> Field 2</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section 3: Data Transformation -->
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Step 3: Data Transformation
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <!-- Content for Step 3 -->
+                                    <ul>
+                                        <li>Field 1: Uppercase</li>
+                                        <li>Field 2: Trim</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section 4: Filtering -->
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Step 4: Filtering
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <!-- Content for Step 4 -->
+                                    <p>Applied Filters:</p>
+                                    <ul id="appliedFiltersSummary">
+                                        <li>Field 1 Equals Value1</li>
+                                        <li>Field 2 Contains Value2</li>
+                                    </ul>
+                                    <p>Sort Field: Field 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success mt-4">Start Transfer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="row">
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-secondary">Previous</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="bg-light text-center py-3">
+  <div class="container">
+    <span class="text-muted">Privacy Policy | Terms of Service | Contact Info</span>
+  </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
